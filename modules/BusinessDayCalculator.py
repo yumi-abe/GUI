@@ -76,83 +76,83 @@ class BusinessDayCalculator:
                 number_of_days -= 1
         return start_date
     
-    def culculate_cross_trade(self, month:int, year:Optional[int]=None) -> Dict[str, date]:
-        """
-        クロス取引の日付を計算する
-        :param month:対象月
-        :param year:対象年（Noneの場合は今年）
-        :return: クロス取引の各日付{権利確定日、権利付き最終日、権利落ち日}(dict形式)
-        """
-        cross_day = {}
+    # def culculate_cross_trade(self, month:int, year:Optional[int]=None) -> Dict[str, date]:
+    #     """
+    #     クロス取引の日付を計算する
+    #     :param month:対象月
+    #     :param year:対象年（Noneの場合は今年）
+    #     :return: クロス取引の各日付{権利確定日、権利付き最終日、権利落ち日}(dict形式)
+    #     """
+    #     cross_day = {}
 
-        # 権利確定日
-        last_date = self.last_business_day(month, year)
-        cross_day["last_date"] = last_date
+    #     # 権利確定日
+    #     last_date = self.last_business_day(month, year)
+    #     cross_day["last_date"] = last_date
 
-        # 権利付き最終日
-        get_date = self.subtract_business_days(last_date)
-        cross_day["get_date"] = get_date
+    #     # 権利付き最終日
+    #     get_date = self.subtract_business_days(last_date)
+    #     cross_day["get_date"] = get_date
 
-        # 権利落ち日
-        ex_date = self.add_business_days(get_date, 1)
-        cross_day["ex_date"] = ex_date
+    #     # 権利落ち日
+    #     ex_date = self.add_business_days(get_date, 1)
+    #     cross_day["ex_date"] = ex_date
 
-        return cross_day
-
-
-
-from Get_DBdata import Get_DBdata
-
-get_DBdata = Get_DBdata()
-
-closed_days = get_DBdata.get_closed_days()
+    #     return cross_day
 
 
-stock_info = get_DBdata.get_stock_name()
 
-calculator = BusinessDayCalculator(closed_days)
+# from Get_DBdata import Get_DBdata
 
-last_day = calculator.last_business_day(4, 2025)
+# get_DBdata = Get_DBdata()
 
-add_day = calculator.add_business_days(last_day)
+# closed_days = get_DBdata.get_closed_days()
 
-subtract_day = calculator.subtract_business_days(last_day)
 
-cross_day = calculator.culculate_cross_trade(4, 2025)
+# stock_info = get_DBdata.get_stock_name()
 
-def strToDate(date_input:Union[str, date]) -> date:
-    if isinstance(date_input, str):
-        toDate = datetime.strptime(date_input, "%Y/%m/%d").date()
-    else:
-        toDate = date_input
-    return toDate
+# calculator = BusinessDayCalculator(closed_days)
 
-def diff_days(start:Union[str, date], end:Union[str, date]) -> int:
-    start = strToDate(start)
-    end = strToDate(end)
-    delta = end - start
-    return delta.days
+# last_day = calculator.last_business_day(4, 2025)
 
-def calculate_cross_fee(amount:Union[str, int], quantity:Union[str, int], delta:int) -> Dict[str, int]:
-    cross_fee = {}
-    amount = float(amount) if isinstance(amount, str or int) else amount
-    quantity = int(quantity) if isinstance(quantity, str) else quantity
-    buy_fee = amount * quantity *  0.025 * 0.0027397 * 1
-    cross_fee['buy_fee'] = math.ceil(buy_fee)
-    sell_fee = amount * quantity * 0.014 * 0.0027397 * delta
-    cross_fee['sell_fee'] = math.ceil(sell_fee)
-    total_fee = buy_fee + sell_fee
-    cross_fee['total_fee'] = math.ceil(total_fee)
+# add_day = calculator.add_business_days(last_day)
 
-    return cross_fee
+# subtract_day = calculator.subtract_business_days(last_day)
 
-# toDate = strToDate('2025/04/30')
-# datetime_date = strToDate(toDate)
-# print(type(datetime_date))
+# cross_day = calculator.culculate_cross_trade(4, 2025)
 
-delta = diff_days(subtract_day, add_day)
-cross_fee = calculate_cross_fee(1000, 100, delta)
-print(cross_fee)
+# def strToDate(date_input:Union[str, date]) -> date:
+#     if isinstance(date_input, str):
+#         toDate = datetime.strptime(date_input, "%Y/%m/%d").date()
+#     else:
+#         toDate = date_input
+#     return toDate
+
+# def diff_days(start:Union[str, date], end:Union[str, date]) -> int:
+#     start = strToDate(start)
+#     end = strToDate(end)
+#     delta = end - start
+#     return delta.days
+
+# def calculate_cross_fee(amount:Union[str, int], quantity:Union[str, int], delta:int) -> Dict[str, int]:
+#     cross_fee = {}
+#     amount = float(amount) if isinstance(amount, str or int) else amount
+#     quantity = int(quantity) if isinstance(quantity, str) else quantity
+#     buy_fee = amount * quantity *  0.025 * 0.0027397 * 1
+#     cross_fee['buy_fee'] = math.ceil(buy_fee)
+#     sell_fee = amount * quantity * 0.014 * 0.0027397 * delta
+#     cross_fee['sell_fee'] = math.ceil(sell_fee)
+#     total_fee = buy_fee + sell_fee
+#     cross_fee['total_fee'] = math.ceil(total_fee)
+
+#     return cross_fee
+
+# # toDate = strToDate('2025/04/30')
+# # datetime_date = strToDate(toDate)
+# # print(type(datetime_date))
+
+# delta = diff_days(subtract_day, add_day)
+# cross_fee = calculate_cross_fee(1000, 100, delta)
+# print(cross_fee)
 
 #    # 日数差計算（金利発生日数）
 #     delta = end_date_object - start_date_object
