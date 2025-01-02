@@ -60,7 +60,7 @@ class CrossTradeCaluculator(BusinessDayCalculator):
         クロス取引の手数料計算
         :param start:開始日（取得日）
         :param end:終了日
-        :return: 手数料{信用買手数料、信用売手数料、合計（信用売＋信用買）}
+        :return: 手数料{金利日数、信用買手数料、信用売手数料、合計（信用売＋信用買）}
         """
 
         cross_day = self.culculate_cross_trade(month, start)

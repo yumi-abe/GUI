@@ -72,9 +72,11 @@ class DataFetcher:
                 self.cursor.execute("INSERT INTO test (date) values (?)", (date.isoformat(),))
             # commit（保存）
             self.conn.commit()
-            print("データを挿入しました")
+            message = "カレンダー情報を更新しました"
+            # print("データを挿入しました")
         except sqlite3.Error as e:
-            print(f"エラー: {e}")
+            message = f"エラー: {e}"
+            # print(f"エラー: {e}")
         finally:
             rows = self.get_table_data('calendar')
             closed_days = []
@@ -83,7 +85,7 @@ class DataFetcher:
                 closed_days.append(date)
             # 接続を閉じる
             self.conn.close()
-        return calendar
+        return message
     
     def get_stock_info(self):
         """JPXの株式名情報を取得してデータベースに保存"""
@@ -125,9 +127,11 @@ class DataFetcher:
                 INSERT OR REPLACE INTO stock_info (code, name) VALUES (?, ?)
                 ''', (data[0], data[1]))
             self.conn.commit()
-            print("株式名のデータを挿入しました")
+            message = "株式名のデータを更新しました"
+            # print("株式名のデータを挿入しました")
         except sqlite3.Error as e:
-            print(f"エラー: {e}")
+            message = f"エラー: {e}"
+            # print(f"エラー: {e}")
         finally:
             rows = self.get_table_data('stock_info')
             stock_info = []
@@ -139,7 +143,7 @@ class DataFetcher:
 
             # 接続を閉じる
             self.conn.close()
-        return stock_info
+        return message
 
 
 fetcher = DataFetcher()
@@ -147,12 +151,12 @@ fetcher = DataFetcher()
 
 
 
-stock_info = fetcher.get_stock_info()
+# stock_info = fetcher.get_stock_info()
 
-print(stock_info)
+# print(stock_info)
 
-calendar = fetcher.get_calendar()
-print(calendar)
+# calendar = fetcher.get_calendar()
+# print(calendar)
 
 
 # def get_calendar():

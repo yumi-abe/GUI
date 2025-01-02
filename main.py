@@ -6,16 +6,17 @@ from modules.Get_DBdata import Get_DBdata
 from modules.stock_search import stock_search
 from modules.CrossTradeCalculator import CrossTradeCaluculator
 from modules.functions import strToDate
+from modules.DataFetcher import DataFetcher
 
 class StockAPP:
     def __init__(self, root):
         """初期化"""
         self.root = root
         self.root.title("手数料計算")
-        self.root.geometry("700x1100+1000+50")
+        self.root.geometry("700x650+1000+50")
 
         # 銘柄コード入力ボックス
-        tb.Label(root, text="銘柄コード(数字4桁)", bootstyle="success").pack(pady=10)
+        tb.Label(root, text="銘柄コード(数字4桁)", bootstyle="success").pack(pady=(30, 10))
         self.code = tb.Entry(root,bootstyle="success")
         self.code.pack()
 
@@ -69,6 +70,18 @@ class StockAPP:
         self.total_result = tb.Label(root, text="", bootstyle="light")
         self.total_result.pack(pady=10)
 
+        # カレンダー更新ボタン（年1くらいしか更新しない想定）
+        self.calendar_button = tb.Button(root, text="カレンダーを更新", bootstyle="light", command=self.update_calendar)
+        self.calendar_button.pack(pady=(50, 0))
+        self.calendar_message = tb.Label(root, text="", bootstyle="success")
+        self.calendar_message.pack(pady=10)
+
+        # 株式名更新ボタン（年1くらいしか更新しない想定）
+        self.stockname_button = tb.Button(root, text="銘柄情報を更新", bootstyle="light", command=self.update_stock_name)
+        self.stockname_button.pack(pady=10)
+        self.stockname_message = tb.Label(root, text="", bootstyle="success")
+        self.stockname_message.pack(pady=10)
+
 
 
     def clear_results(self):
@@ -78,6 +91,8 @@ class StockAPP:
         self.date_result.config(text="")
         self.fee_result.config(text="")
         self.total_result.config(text="")
+        self.calendar_message.config(text="")
+        self.stockname_message.config(text="")
 
 
     def show_stock_name(self):
@@ -136,6 +151,18 @@ class StockAPP:
         self.fee_result.config(text=f"買建金利: {cross_fee['buy_fee']}円 売建金利: {cross_fee['sell_fee']}円")
         self.total_result.config(text=f"手数料合計: {cross_fee['total_fee']}円")
     
+    def update_calendar(self):
+        self.clear_results() #ラベルを初期化
+        fetcher = DataFetcher()
+        message = fetcher.get_calendar()
+        self.calendar_message.config(text=message)
+
+    def update_stock_name(self):
+        self.clear_results() #ラベルを初期化
+        fetcher = DataFetcher()
+        message = fetcher.get_stock_info()
+        self.stockname_message.config(text=message)
+
 
 
 if __name__ == "__main__":

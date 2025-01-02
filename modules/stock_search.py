@@ -6,7 +6,8 @@ import yfinance as yf
 from modules.Get_DBdata import Get_DBdata
 
 """
-入力されたコードに該当する銘柄情報を取得
+yahoofinanceAPIを使用し、
+入力された銘柄コードに該当する株式情報を取得
 """
 
 def stock_search(code):
