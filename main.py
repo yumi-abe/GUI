@@ -1,4 +1,5 @@
 from datetime import datetime
+import re
 import tkinter as tk
 import tkinter.messagebox as messagebox
 import ttkbootstrap as tb
@@ -16,7 +17,7 @@ class StockAPP:
         self.root.geometry("700x650+1000+50")
 
         # 銘柄コード入力ボックス
-        tb.Label(root, text="銘柄コード(数字4桁)", bootstyle="success").pack(pady=(30, 10))
+        tb.Label(root, text="銘柄コード(英数字4桁)", bootstyle="success").pack(pady=(30, 10))
         self.code = tb.Entry(root,bootstyle="success")
         self.code.pack()
 
@@ -100,6 +101,13 @@ class StockAPP:
         検索ボタンを押すと銘柄名、株価を表示する
         """
         stock_code = self.code.get()
+        if re.fullmatch(r"[a-zA-Z0-9]+", stock_code) == None:
+            self.code_name.config(text='英数字を入力してください')
+            return
+        elif len(stock_code) > 4:
+            self.code_name.config(text='4桁で入力してください')
+            return
+        
         stock_info = stock_search(stock_code) #yfで銘柄検索
 
         # 見つからなかった場合はメッセージを表示
