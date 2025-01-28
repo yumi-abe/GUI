@@ -16,20 +16,20 @@
    日興証券の手数料体系に基づき、取引金額や保有日数をもとに手数料を算出
 
 ## 使用ファイル
-1.**main.py**
+**main.py**  
    Tkinterで見た目部分を表示、modulesの関数を呼び出して処理を実行
 
-2.**modules/BusinessDayCaluculator.py**
+**modules/BusinessDayCaluculator.py**  
    土日祝・休業日を除いた営業日数を計算する
 
-3.**modules/DataFetcher.py**
+**modules/DataFetcher.py**  
    市場休日、株式上場一覧をスクレイピングで取得しデータベースへ保存
 
-4.**modules/functions.py**
+**modules/functions.py**  
    string-date型変換、日数差計算
 
-5.**modules/Get_DBdata.py**
+**modules/Get_DBdata.py**  
    データベースから休日一覧、株式上場一覧データ取得
 
-6.**modules/stock_search.py**
+**modules/stock_search.py**  
    yfinanceAPIで入力した銘柄コードに該当する株式情報を取得
