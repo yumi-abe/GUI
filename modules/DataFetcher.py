@@ -109,6 +109,16 @@ class DataFetcher:
 
         self.driver.quit()
 
+        #resquestでも取得できる（こっちのほうが早い）
+        # url = "https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls"
+        # r = requests.get(url)
+        # if r.status_code == 200:
+        #     with open("data_j.xls", "wb") as file:
+        #         file.write(r.content)
+        #     print("保存しました。")
+        # else:
+        #     print("取得に失敗しました。")
+
          # データベース接続
         self.connect_db()
         sql = """
