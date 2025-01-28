@@ -17,19 +17,19 @@
 
 ## 使用ファイル
 ・**main.py**
-Tkinterで見た目部分を表示、modulesの関数を呼び出して処理を実行
+   Tkinterで見た目部分を表示、modulesの関数を呼び出して処理を実行
 
 ・**modules/BusinessDayCaluculator.py**
-土日祝・休業日を除いた営業日数を計算する
+   土日祝・休業日を除いた営業日数を計算する
 
 ・**modules/DataFetcher.py**
-市場休日、株式上場一覧をスクレイピングで取得しデータベースへ保存
+   市場休日、株式上場一覧をスクレイピングで取得しデータベースへ保存
 
 ・**modules/functions.py**
-string-date型変換、日数差計算
+   string-date型変換、日数差計算
 
 ・**modules/Get_DBdata.py**
-データベースから休日一覧、株式上場一覧データ取得
+   データベースから休日一覧、株式上場一覧データ取得
 
 ・**modules/stock_search.py**
-yfinanceAPIで入力した銘柄コードに該当する株式情報を取得
+   yfinanceAPIで入力した銘柄コードに該当する株式情報を取得
