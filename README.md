@@ -2,7 +2,7 @@
 
 ## 概要
 このツールは、日興証券を利用したクロス取引（信用取引）の手数料を計算するためのツールです。  
-distディレクトリをダウンロードしmain.exeを実行するとローカル環境でも実行可能です。
+distディレクトリをダウンロードしmain.exeを実行するとローカル環境でも実行可能です。  
 下記設計資料の手数料計算パートのみを試しに作成
 https://docs.google.com/spreadsheets/d/1MDWPg_FjTnBP4PZJ_VAoLTPq4PB3Qd5ZmHL2VHUcgL8/edit?gid=134707271#gid=134707271
 
